@@ -1,6 +1,6 @@
-import PartnerService from './PartnerService';
+import {{item.name}}Service from './SinkService';
 
-describe('PartnerService', () => {
+describe('{{item.name}}Service', () => {
 
   beforeEach(() => {
   });

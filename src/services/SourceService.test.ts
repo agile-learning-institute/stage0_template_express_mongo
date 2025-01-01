@@ -1,6 +1,6 @@
-import PeopleService from './PeopleService';
+import {{item.name}}Service from './SourceService';
 
-describe('PeopleService', () => {
+describe('{{item.name}}Service', () => {
 
   beforeEach(() => {
   });

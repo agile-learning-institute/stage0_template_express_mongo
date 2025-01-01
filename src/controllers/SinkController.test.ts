@@ -1,5 +1,5 @@
-import PeopleController from '../controllers/PeopleController';
-import PeopleService from '../services/PeopleService';
+import PeopleController from './SinkController';
+import PeopleService from '../services/SinkService';
 import { decodeToken, createBreadcrumb } from '@agile-learning-institute/mentorhub-ts-api-utils';
 import { Request, Response } from 'express';
 
