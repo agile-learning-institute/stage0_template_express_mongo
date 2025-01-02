@@ -1,13 +1,10 @@
 import express from 'express';
 import http from 'http';
 import promBundle from 'express-prom-bundle'; 
-import {Config, ConfigController, MongoIO} from '@{{arch.organization}}/{{arch.product}}-ts-api-utils';
-{% for source in service.data.sources -%}
-import {{source.name | title}}Controller from './controllers/{{source.name | title}}Controller';
-{% endfor %}
-{%- for source in service.data.sinks -%}
-import {{source.name | title}}Controller from './controllers/{{source.name | title}}Controller';
-{% endfor %}
+import {Config, ConfigController, MongoIO} from '@agile-learning-institute/mentorhub-ts-api-utils';
+import PartnerController from './controllers/PartnerController';
+import PersonController from './controllers/PersonController';
+
 export class Server {
     private config: Config;
     private mongoIO: MongoIO;
@@ -32,23 +29,21 @@ export class Server {
         app.use(metricsMiddleware);
 
         // Create controllers, map routes
-        {% for source in service.data.sources -%}
-        const {{source.name}}Controller = new {{source.name | title}}Controller();
-        app.post('/api/{{source.name}}/', (req, res) => {{source.name}}Controller.create{{source.name | title}}(req, res));
-        app.get('/api/{{source.name}}/', (req, res) => {{source.name}}Controller.get{{source.name | title}}s(req, res));
-        app.get('/api/{{source.name}}/:{{source.name}}Id', (req, res) => {{source.name}}Controller.get{{source.name | title}}(req, res));
-        app.patch('/api/{{source.name}}/:{{source.name}}Id', (req, res) => {{source.name}}Controller.update{{source.name | title}}(req, res));
-{% endfor %}
-        {% for source in service.data.sinks -%}
-        const {{source.name}}Controller = new {{source.name | title}}Controller();
-        app.get('/api/{{source.name}}/', (req, res) => {{source.name}}Controller.get{{source.name | title}}(req, res));
-{% endfor %}
+        const partnerController = new PartnerController();
+        app.post('/api/partner/', (req, res) => partnerController.createPartner(req, res));
+        app.get('/api/partner/', (req, res) => partnerController.getPartners(req, res));
+        app.get('/api/partner/:partnerId', (req, res) => partnerController.getPartner(req, res));
+        app.patch('/api/partner/:partnerId', (req, res) => partnerController.updatePartner(req, res));
+
+        const personController = new PersonController();
+        app.get('/api/person/', (req, res) => personController.getPerson(req, res));
+
         // Map config to controllers
         const configController = new ConfigController();
         app.get('/api/config/', (req, res) => configController.getConfig(req, res));
 
         // Start Server
-        const port = this.config.{{service.name | upper}}S_API_PORT;
+        const port = this.config.PARTNERS_API_PORT;
         this.server = app.listen(port, () => {
             console.log(`Server running on port ${port}`);
         });

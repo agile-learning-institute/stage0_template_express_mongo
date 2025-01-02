@@ -1,6 +1,6 @@
-import {{item.name}}Service from './SourceService';
+import {{item.name | title}}Service from './{{item.name | title}}Service';
 
-describe('{{item.name}}Service', () => {
+describe('{{item.name | title}}Service', () => {
 
   beforeEach(() => {
   });

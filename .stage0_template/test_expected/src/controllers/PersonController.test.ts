@@ -1,22 +1,22 @@
-import {{item.name | title}}Controller from './{{item.name | title}}Controller';
-import {{item.name | title}}Service from '../services/{{item.name | title}}Service';
+import PersonController from './PersonController';
+import PersonService from '../services/PersonService';
 import { decodeToken, createBreadcrumb } from '@agile-learning-institute/mentorhub-ts-api-utils';
 import { Request, Response } from 'express';
 
 // Mock dependencies
-jest.mock('../services/{{item.name | title}}Service');
+jest.mock('../services/PersonService');
 jest.mock('@agile-learning-institute/mentorhub-ts-api-utils', () => ({
     decodeToken: jest.fn(),
     createBreadcrumb: jest.fn(),
   }));
   
-describe('{{item.name | title}}Controller', () => {
-    let controller: {{item.name | title}}Controller;
+describe('PersonController', () => {
+    let controller: PersonController;
     let mockRequest: Partial<Request>;
     let mockResponse: Partial<Response>;
 
     beforeEach(() => {
-        controller = new {{item.name | title}}Controller();
+        controller = new PersonController();
 
         // Mock Request
         mockRequest = {
@@ -36,7 +36,7 @@ describe('{{item.name | title}}Controller', () => {
         jest.clearAllMocks(); // Clear mocks between tests
     });
 
-    it('should return {{item.name}} and log success', async () => {
+    it('should return person and log success', async () => {
         const mockToken = { userId: 'aaaa00000000000000000001', roles: ['Staff'] };
         const mockBreadcrumb = { atTime: '2024-12-18T18:17:58.000Z', byUser: 'aaaa00000000000000000001', fromIp: '192.168.1.1', correlationId: 'test-correlation-id' };
         const mockResults = [{ name: 'John Doe', age: 30 }];
@@ -44,15 +44,15 @@ describe('{{item.name | title}}Controller', () => {
         // Mock functions
         (decodeToken as jest.Mock).mockReturnValue(mockToken);
         (createBreadcrumb as jest.Mock).mockReturnValue(mockBreadcrumb);
-        ({{item.name | title}}Service.Find{{item.name | title}} as jest.Mock).mockResolvedValue(mockResults);
+        (PersonService.FindPerson as jest.Mock).mockResolvedValue(mockResults);
 
         // Call the method
-        await controller.get{{item.name | title}}(mockRequest as Request, mockResponse as Response);
+        await controller.getPerson(mockRequest as Request, mockResponse as Response);
 
         // Assertions
         expect(decodeToken).toHaveBeenCalledWith(mockRequest);
         expect(createBreadcrumb).toHaveBeenCalledWith(mockToken, mockRequest);
-        expect({{item.name | title}}Service.Find{{item.name | title}}).toHaveBeenCalledWith(mockRequest.query, mockToken);
+        expect(PersonService.FindPerson).toHaveBeenCalledWith(mockRequest.query, mockToken);
         expect(mockResponse.json).toHaveBeenCalledWith(mockResults);
         expect(mockResponse.status).toHaveBeenCalledWith(200);
     });
@@ -60,20 +60,20 @@ describe('{{item.name | title}}Controller', () => {
     it('should handle errors and log failure', async () => {
         const mockToken = { userId: 'aaaa00000000000000000001', roles: ['Staff'] };
         const mockBreadcrumb = { atTime: '2024-12-18T18:17:58.000Z', byUser: 'aaaa00000000000000000001', fromIp: '192.168.1.1', correlationId: 'test-correlation-id' };
-        const mockError = new Error('Find{{item.name | title}} Failed');
+        const mockError = new Error('FindPerson Failed');
 
         // Mock functions
         (decodeToken as jest.Mock).mockReturnValue(mockToken);
         (createBreadcrumb as jest.Mock).mockReturnValue(mockBreadcrumb);
-        ({{item.name | title}}Service.Find{{item.name | title}} as jest.Mock).mockRejectedValue(mockError);
+        (PersonService.FindPerson as jest.Mock).mockRejectedValue(mockError);
 
         // Call the method
-        await controller.get{{item.name | title}}(mockRequest as Request, mockResponse as Response);
+        await controller.getPerson(mockRequest as Request, mockResponse as Response);
 
         // Assertions
         expect(decodeToken).toHaveBeenCalledWith(mockRequest);
         expect(createBreadcrumb).toHaveBeenCalledWith(mockToken, mockRequest);
-        expect({{item.name | title}}Service.Find{{item.name | title}}).toHaveBeenCalledWith(mockRequest.query, mockToken);
+        expect(PersonService.FindPerson).toHaveBeenCalledWith(mockRequest.query, mockToken);
         expect(mockResponse.status).toHaveBeenCalledWith(500);
     });
 });

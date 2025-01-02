@@ -12,13 +12,14 @@ context:
     path: specifications.architecture
   - key: service
     type: selector
-    path: architecture.domains
+    path: specifications.architecture.domains
     filter:
       property: name
       value: "{{SERVICE_NAME}}"
 
 requires:
   - arch.organization
+  - arch.organization_name
   - arch.product
   - service.name
   - service.data.sources
@@ -29,38 +30,47 @@ templates:
     merge: true
   - path: "./docs/openapi.yaml"
     merge: true
+
   - path: "./src/controllers/SourceController.ts"
     mergeFor: 
       items: service.data.sources
-      output: "./{{name}}Controller.ts"
+      output: "./src/controllers/{{name | title}}Controller.ts"
+
   - path: "./src/controllers/SourceController.test.ts"
     mergeFor: 
       items: service.data.sources
-      output: "./{{name}}Controller.test.ts"
+      output: "./src/controllers/{{name | title}}Controller.test.ts"
+
   - path: "./src/controllers/SinkController.ts"
     mergeFor: 
       items: service.data.sinks
-      output: "./{{name}}Controller.ts"
+      output: "./src/controllers/{{name | title}}Controller.ts"
+
   - path: "./src/controllers/SinkController.test.ts"
     mergeFor: 
       items: service.data.sinks
-      output: "./{{name}}Controller.test.ts"
+      output: "./src/controllers/{{name | title}}Controller.test.ts"
+
   - path: "./src/services/SourceService.ts"
     mergeFor: 
       items: service.data.sources
-      output: "./{{name}}Service.ts"
-  - path: "./src/controllers/SourceService.test.ts"
+      output: "./src/services/{{name | title}}Service.ts"
+
+  - path: "./src/services/SourceService.test.ts"
     mergeFor: 
       items: service.data.sources
-      output: "./{{name}}Service.test.ts"
-  - path: "./src/controllers/SinkService.ts"
+      output: "./src/services/{{name | title}}Service.test.ts"
+
+  - path: "./src/services/SinkService.ts"
     mergeFor: 
       items: service.data.sinks
-      output: "./{{name}}Service.ts"
-  - path: "./src/controllers/SinkService.test.ts"
+      output: "./src/services/{{name | title}}Service.ts"
+
+  - path: "./src/services/SinkService.test.ts"
     mergeFor: 
       items: service.data.sinks
-      output: "./{{name}}Service.test.ts"
+      output: "./src/services/{{name | title}}Service.test.ts"
+      
   - path: "./src/server.ts"
     merge: true
   - path: "./LICENSE"
