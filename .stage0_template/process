@@ -10,28 +10,17 @@ if [ ! -e ./.stage0_template ]; then
 fi
 
 # Setup the environment
-TEMP_REPO="${TEMP_REPO:-~/tmp/testRepo}"
 LOG_LEVEL="${LOG_LEVEL:-INFO}"
 SERVICE_NAME="${SERVICE_NAME:-partner}"
-
-# Setup the testing folder
-echo "Setting up temporary testing folder at $TEMP_REPO..."
-rm -rf $TEMP_REPO
-mkdir -p $TEMP_REPO 
-echo "Copying template repo to $TEMP_REPO..."
-cp -r . $TEMP_REPO
+SPECIFICATIONS_PATH="${SERVICE_NAME:-/specifications}"
 
 # Run the container
-echo "Running the container..."
+echo "Merging Templates..."
 docker run --rm \
-    -v "$TEMP_REPO:/repo" \
-    -v "$(pwd)/.stage0_template/test_data:/specifications" \
+    -v "$(pwd):/repo" \
+    -v "$SPECIFICATIONS_PATH:/specifications" \
     -e LOG_LEVEL=$LOG_LEVEL \
     -e SERVICE_NAME=$SERVICE_NAME \
     ghcr.io/agile-learning-institute/stage0-generator:latest
 
-# Check the results
-echo "Checking output..."
-diff -qr "$(pwd)/.stage0_template/test_expected/" "$TEMP_REPO/"
-
-echo "Done."
+echo "Done, thank you for flying with stage0."
