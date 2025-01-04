@@ -1,4 +1,4 @@
-import {Config, Token, MongoIO} from '@agile-learning-institute/mentorhub-ts-api-utils';
+import { Config, Token, MongoIO } from '@agile-learning-institute/mentorhub-ts-api-utils';
 
 export default class TopicService {
     

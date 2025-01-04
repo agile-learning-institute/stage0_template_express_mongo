@@ -1,4 +1,4 @@
-import {Config, Breadcrumb, Token, MongoIO} from '@agile-learning-institute/mentorhub-ts-api-utils';
+import { Config, Breadcrumb, Token, MongoIO } from '@{{arch.organization}}/{{arch.product}}-ts-api-utils';
 
 export default class {{item.name | title}}Service {
     

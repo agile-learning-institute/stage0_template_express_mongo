@@ -1,4 +1,4 @@
-import {Config, Breadcrumb, Token, MongoIO} from '@agile-learning-institute/mentorhub-ts-api-utils';
+import { Config, Breadcrumb, Token, MongoIO } from '@agile-learning-institute/mentorhub-ts-api-utils';
 
 export default class PartnerService {
     
