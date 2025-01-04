@@ -5,7 +5,7 @@ export default class PartnerService {
   constructor() {
   }
 
-  public static async FindPartners(query: any, token: Token): Promise<any[]> {
+  public static async GetPartners(query: any, token: Token): Promise<any[]> {
     const mongoIO = MongoIO.getInstance();
     const config = Config.getInstance();
 
@@ -19,7 +19,7 @@ export default class PartnerService {
     return partners;
   }
 
-  public static async FindPartner(id: string, token: Token): Promise<any> {
+  public static async GetPartner(id: string, token: Token): Promise<any> {
     const mongoIO = MongoIO.getInstance();
     const config = Config.getInstance();
 

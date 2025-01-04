@@ -5,7 +5,7 @@ export default class {{item.name | title}}Service {
   constructor() {
   }
 
-  public static async Find{{item.name | title}}s(query: any, token: Token): Promise<any[]> {
+  public static async Get{{item.name | title}}s(query: any, token: Token): Promise<any[]> {
     const mongoIO = MongoIO.getInstance();
     const config = Config.getInstance();
 
@@ -19,7 +19,7 @@ export default class {{item.name | title}}Service {
     return {{item.name}}s;
   }
 
-  public static async Find{{item.name | title}}(id: string, token: Token): Promise<any> {
+  public static async Get{{item.name | title}}(id: string, token: Token): Promise<any> {
     const mongoIO = MongoIO.getInstance();
     const config = Config.getInstance();
 
