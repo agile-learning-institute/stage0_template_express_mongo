@@ -1,6 +1,6 @@
-import PersonService from './PersonService';
+import TopicService from './TopicService';
 
-describe('PersonService', () => {
+describe('TopicService', () => {
 
   beforeEach(() => {
   });

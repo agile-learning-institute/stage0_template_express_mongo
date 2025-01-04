@@ -14,7 +14,16 @@ domains:
           backing_service: mongodb
           schema: $ref:./dataDefinitions/dd.partner.yaml
       sinks:
-        - name: person
+        - name: topic
           backing_service: mongodb
-          schema: $ref:./dataDefinitions/dd.person.yaml
+          schema: $ref:./dataDefinitions/dd.topic.yaml
+      api:
+    api:
+      template: template-ts-express-mongodb-api
+      repo: "{{organization}}/{{product}}-partner-api"
+      port: PARTNER_API_PORT
+    ui:
+      template: template-ts-vue-spa
+      repo: "{{organization}}/{{product}}-partner-ui"
+      port: PARTNER_UI_PORT      
   - name: static

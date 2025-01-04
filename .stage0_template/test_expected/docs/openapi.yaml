@@ -151,8 +151,8 @@ components:
 
 
 
-    person:
-      $ref:./dataDefinitions/dd.person.yaml
+    topic:
+      $ref:./dataDefinitions/dd.topic.yaml
 
 
     config:

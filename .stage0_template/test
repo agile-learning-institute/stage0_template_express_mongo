@@ -10,7 +10,7 @@ if [ ! -e ./.stage0_template ]; then
 fi
 
 # Setup the environment
-TEMP_REPO="${TEMP_REPO:-~/tmp/testRepo}"
+TEMP_REPO="${TEMP_REPO:-$HOME/tmp/testRepo}"
 LOG_LEVEL="${LOG_LEVEL:-INFO}"
 SERVICE_NAME="${SERVICE_NAME:-partner}"
 

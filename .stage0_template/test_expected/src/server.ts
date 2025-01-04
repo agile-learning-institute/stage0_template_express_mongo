@@ -3,7 +3,7 @@ import http from 'http';
 import promBundle from 'express-prom-bundle'; 
 import {Config, ConfigController, MongoIO} from '@agile-learning-institute/mentorhub-ts-api-utils';
 import PartnerController from './controllers/PartnerController';
-import PersonController from './controllers/PersonController';
+import TopicController from './controllers/TopicController';
 
 export class Server {
     private config: Config;
@@ -35,8 +35,8 @@ export class Server {
         app.get('/api/partner/:partnerId', (req, res) => partnerController.getPartner(req, res));
         app.patch('/api/partner/:partnerId', (req, res) => partnerController.updatePartner(req, res));
 
-        const personController = new PersonController();
-        app.get('/api/person/', (req, res) => personController.getPerson(req, res));
+        const topicController = new TopicController();
+        app.get('/api/topic/', (req, res) => topicController.getTopic(req, res));
 
         // Map config to controllers
         const configController = new ConfigController();
