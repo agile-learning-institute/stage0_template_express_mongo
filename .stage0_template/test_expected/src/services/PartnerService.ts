@@ -31,7 +31,7 @@ export default class PartnerService {
     return partner;
   }
 
-  public static async InsertPartner(data: any, token: Token, breadcrumb: Breadcrumb): Promise<any> {
+  public static async CreatePartner(data: any, token: Token, breadcrumb: Breadcrumb): Promise<any> {
     const mongoIO = MongoIO.getInstance();
     const config = Config.getInstance();
 
@@ -42,7 +42,7 @@ export default class PartnerService {
     data.status = "Active";
     
     const partner = await mongoIO.insertDocument(config.PARTNERS_COLLECTION_NAME, data);
-    return PartnerService.FindPartner(partner._id, token);
+    return PartnerService.GetPartner(partner._id, token);
   }
 
   public static async UpdatePartner(id: string, updates: any, token: Token, breadcrumb: Breadcrumb): Promise<any> {
@@ -56,6 +56,6 @@ export default class PartnerService {
 
     const partner = await mongoIO.updateDocument(config.PARTNERS_COLLECTION_NAME, id, updates);
     if (!partner) throw new Error(`Partner Not Found ${id}`);
-    return PartnerService.FindPartner(partner._id, token);
+    return PartnerService.GetPartner(partner._id, token);
   }
 }

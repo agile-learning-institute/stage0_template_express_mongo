@@ -31,7 +31,7 @@ export default class {{item.name | title}}Service {
     return {{item.name}};
   }
 
-  public static async Insert{{item.name | title}}(data: any, token: Token, breadcrumb: Breadcrumb): Promise<any> {
+  public static async Create{{item.name | title}}(data: any, token: Token, breadcrumb: Breadcrumb): Promise<any> {
     const mongoIO = MongoIO.getInstance();
     const config = Config.getInstance();
 
@@ -42,7 +42,7 @@ export default class {{item.name | title}}Service {
     data.status = "Active";
     
     const {{item.name}} = await mongoIO.insertDocument(config.PARTNERS_COLLECTION_NAME, data);
-    return {{item.name | title}}Service.Find{{item.name | title}}({{item.name}}._id, token);
+    return {{item.name | title}}Service.Get{{item.name | title}}({{item.name}}._id, token);
   }
 
   public static async Update{{item.name | title}}(id: string, updates: any, token: Token, breadcrumb: Breadcrumb): Promise<any> {
@@ -56,6 +56,6 @@ export default class {{item.name | title}}Service {
 
     const {{item.name}} = await mongoIO.updateDocument(config.PARTNERS_COLLECTION_NAME, id, updates);
     if (!{{item.name}}) throw new Error(`{{item.name | title}} Not Found ${id}`);
-    return {{item.name | title}}Service.Find{{item.name | title}}({{item.name}}._id, token);
+    return {{item.name | title}}Service.Get{{item.name | title}}({{item.name}}._id, token);
   }
 }
