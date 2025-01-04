@@ -11,7 +11,7 @@ export default class PartnerController {
     try {
       const token = decodeToken(req);
       const breadcrumb = createBreadcrumb(token, req);
-      const results = await PartnerService.FindPartners(req.query, token)
+      const results = await PartnerService.GetPartners(req.query, token)
       res.status(200);
       res.json(results);
       console.info("GetPartners Completed", JSON.stringify(breadcrumb));
@@ -28,7 +28,7 @@ export default class PartnerController {
       const theId = req.params.partnerId;
       const token = decodeToken(req);
       const breadcrumb = createBreadcrumb(token, req);
-      const thePartner = await PartnerService.FindPartner(theId, token);
+      const thePartner = await PartnerService.GetPartner(theId, token);
       res.status(200);
       res.json(thePartner);
       console.info("GetPartner %s Completed with %s", theId, JSON.stringify(breadcrumb));

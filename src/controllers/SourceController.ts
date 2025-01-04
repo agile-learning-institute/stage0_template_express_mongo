@@ -11,7 +11,7 @@ export default class {{item.name | title}}Controller {
     try {
       const token = decodeToken(req);
       const breadcrumb = createBreadcrumb(token, req);
-      const results = await {{item.name | title}}Service.Find{{item.name | title}}s(req.query, token)
+      const results = await {{item.name | title}}Service.Get{{item.name | title}}s(req.query, token)
       res.status(200);
       res.json(results);
       console.info("Get{{item.name | title}}s Completed", JSON.stringify(breadcrumb));
@@ -28,7 +28,7 @@ export default class {{item.name | title}}Controller {
       const theId = req.params.{{item.name}}Id;
       const token = decodeToken(req);
       const breadcrumb = createBreadcrumb(token, req);
-      const the{{item.name | title}} = await {{item.name | title}}Service.Find{{item.name | title}}(theId, token);
+      const the{{item.name | title}} = await {{item.name | title}}Service.Get{{item.name | title}}(theId, token);
       res.status(200);
       res.json(the{{item.name | title}});
       console.info("Get{{item.name | title}} %s Completed with %s", theId, JSON.stringify(breadcrumb));
