@@ -1,4 +1,4 @@
-import PartnerController from '../controllers/PartnerController';
+import PartnerController from './PartnerController';
 import PartnerService from '../services/PartnerService';
 import { decodeToken, createBreadcrumb } from '@agile-learning-institute/mentorhub-ts-api-utils';
 import { Request, Response } from 'express';
@@ -110,39 +110,4 @@ describe('PartnerController', () => {
         expect(mockResponse.status).toHaveBeenCalledWith(200);
     });
 
-    it('should add a contact successfully', async () => {
-        const mockToken = { userId: 'user123', roles: ['admin'] };
-        const mockBreadcrumb = { correlationId: 'test-correlation-id' };
-        const mockContact = { id: 'contact123', name: 'New Contact' };
-
-        (decodeToken as jest.Mock).mockReturnValue(mockToken);
-        (createBreadcrumb as jest.Mock).mockReturnValue(mockBreadcrumb);
-        (PartnerService.AddContact as jest.Mock).mockResolvedValue(mockContact);
-
-        await controller.addContact(mockRequest as Request, mockResponse as Response);
-
-        expect(decodeToken).toHaveBeenCalledWith(mockRequest);
-        expect(createBreadcrumb).toHaveBeenCalledWith(mockToken, mockRequest);
-        // expect(PartnerService.AddContact).toHaveBeenCalledWith(mockRequest.params.partnerId, mockRequest.params.personId, mockToken, mockBreadcrumb);
-        expect(mockResponse.json).toHaveBeenCalledWith(mockContact);
-        expect(mockResponse.status).toHaveBeenCalledWith(200);
-    });
-
-    it('should remove a contact successfully', async () => {
-        const mockToken = { userId: 'user123', roles: ['admin'] };
-        const mockBreadcrumb = { correlationId: 'test-correlation-id' };
-        const mockPartner = { id: 'partner123', name: 'Partner A' };
-
-        (decodeToken as jest.Mock).mockReturnValue(mockToken);
-        (createBreadcrumb as jest.Mock).mockReturnValue(mockBreadcrumb);
-        (PartnerService.RemoveContact as jest.Mock).mockResolvedValue(mockPartner);
-
-        await controller.removeContact(mockRequest as Request, mockResponse as Response);
-
-        expect(decodeToken).toHaveBeenCalledWith(mockRequest);
-        expect(createBreadcrumb).toHaveBeenCalledWith(mockToken, mockRequest);
-        // expect(PartnerService.RemoveContact).toHaveBeenCalledWith(mockRequest.params.partnerId, mockRequest.params.personId, mockToken, mockBreadcrumb);
-        expect(mockResponse.json).toHaveBeenCalledWith(mockPartner);
-        expect(mockResponse.status).toHaveBeenCalledWith(200);
-    });
 });

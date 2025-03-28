@@ -1,0 +1,29 @@
+$schema: "https://agile-learning.institute/stage0/schemas/architecture.schema.yaml"
+$id: "https://{{organization}}/{{product}}/specifications/architecture.yaml"
+product: mentorhub
+organization: agile-learning-institute
+organization_name: the Agile Learning Institute
+environments:
+domains:
+  - name: noise
+  - name: partner
+    description: The Partners
+    data:
+      sources:
+        - name: partner
+          backing_service: mongodb
+          schema: $ref:./dataDefinitions/dd.partner.yaml
+      sinks:
+        - name: topic
+          backing_service: mongodb
+          schema: $ref:./dataDefinitions/dd.topic.yaml
+      api:
+    api:
+      template: template-ts-express-mongodb-api
+      repo: "{{organization}}/{{product}}-partner-api"
+      port: PARTNER_API_PORT
+    ui:
+      template: template-ts-vue-spa
+      repo: "{{organization}}/{{product}}-partner-ui"
+      port: PARTNER_UI_PORT      
+  - name: static

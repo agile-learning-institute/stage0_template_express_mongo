@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Exit immediately if a command fails
+set -e
+
+# Validate the script is being run in the correct context
+if [ ! -e ./.stage0_template ]; then
+    echo "Error: This script must be run from the root of the repo. Ensure the repo is an unprocessed Stage0 template repository."
+    exit 1
+fi
+
+# Setup the environment
+TEMP_REPO="${TEMP_REPO:-$HOME/tmp/testRepo}"
+LOG_LEVEL="${LOG_LEVEL:-INFO}"
+SERVICE_NAME="${SERVICE_NAME:-partner}"
+
+# Setup the testing folder
+echo "Setting up temporary testing folder at $TEMP_REPO..."
+rm -rf $TEMP_REPO
+mkdir -p $TEMP_REPO 
+echo "Copying template repo to $TEMP_REPO..."
+cp -r . $TEMP_REPO
+
+# Run the container
+echo "Running the container..."
+docker run --rm \
+    -v "$TEMP_REPO:/repo" \
+    -v "$(pwd)/.stage0_template/test_data:/specifications" \
+    -e LOG_LEVEL=$LOG_LEVEL \
+    -e SERVICE_NAME=$SERVICE_NAME \
+    ghcr.io/agile-learning-institute/stage0_runbook_merge:latest
+
+# Check the results
+echo "Checking output..."
+diff -qr "$(pwd)/.stage0_template/test_expected/" "$TEMP_REPO/"
+
+echo "Done."

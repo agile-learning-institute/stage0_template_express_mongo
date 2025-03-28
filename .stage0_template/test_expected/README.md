@@ -1,8 +1,8 @@
-# mentorhub-{{service.name}}-api
+# mentorhub-partner-api
 
-This is repository contains the API for the {{service.name | title}} microservice.
+This is repository contains the API for the Partner microservice.
 - This uses the [mentorhub-mongodb](https://github.com/agile-learning-institute/mentorHub-mongodb) project for a database with test data
-- This API supports the [mentorhub-{{service.name}}ui](https://github.com/agile-learning-institute/mentorHub-{{service.name}}-ui) front end.
+- This API supports the [mentorhub-partnerui](https://github.com/agile-learning-institute/mentorHub-partner-ui) front end.
 
 ## Prerequisites
 
@@ -73,45 +73,45 @@ curl http://localhost:8084/api/health/
 curl http://localhost:8084/api/config/
 ```
 
-### Get {{service.name | title}} Names
+### Get Partner Names
 
 ```bash
-curl http://localhost:8084/api/{{service.name}}/
+curl http://localhost:8084/api/partner/
 ```
 
-### Test get a {{service.name}}
+### Test get a partner
 
 ```bash
-curl http://localhost:8084/api/{{service.name}}/bbbb00000000000000000000
+curl http://localhost:8084/api/partner/bbbb00000000000000000000
 ```
 
-### Test add a {{service.name}}
+### Test add a partner
 
 ```bash
-curl -X POST http://localhost:8084/api/{{service.name}}/ \
+curl -X POST http://localhost:8084/api/partner/ \
      -H "Content-Type: application/json" \
      -d '{"name":"Foo", "description":"Some short description"}'
 
 ```
 
-### Test update a {{service.name}}
+### Test update a partner
 
 ```bash
-curl -X PATCH http://localhost:8084/api/{{service.name}}/bbbb00000000000000000000 \
+curl -X PATCH http://localhost:8084/api/partner/bbbb00000000000000000000 \
      -H "Content-Type: application/json" \
      -d '{"description":"Some long description"}'
 ```
 
-### Test Add a contact to a {{service.name}}
+### Test Add a contact to a partner
 
 ```bash
-curl -X POST http://localhost:8084/api/{{service.name}}/bbbb00000000000000000000/contact/AAAA00000000000000000000
+curl -X POST http://localhost:8084/api/partner/bbbb00000000000000000000/contact/AAAA00000000000000000000
 ```
 
-### Test Remove a contct from a  {{service.name}}
+### Test Remove a contct from a  partner
 
 ```bash
-curl -X DELETE http://localhost:8084/api/{{service.name}}/bbbb00000000000000000000contact/AAAA00000000000000000000
+curl -X DELETE http://localhost:8084/api/partner/bbbb00000000000000000000contact/AAAA00000000000000000000
 ```
 
 ## Observability and Configuration

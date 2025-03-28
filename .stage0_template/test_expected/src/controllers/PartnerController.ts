@@ -11,7 +11,7 @@ export default class PartnerController {
     try {
       const token = decodeToken(req);
       const breadcrumb = createBreadcrumb(token, req);
-      const results = await PartnerService.FindPartners(req.query, token)
+      const results = await PartnerService.GetPartners(req.query, token)
       res.status(200);
       res.json(results);
       console.info("GetPartners Completed", JSON.stringify(breadcrumb));
@@ -28,7 +28,7 @@ export default class PartnerController {
       const theId = req.params.partnerId;
       const token = decodeToken(req);
       const breadcrumb = createBreadcrumb(token, req);
-      const thePartner = await PartnerService.FindPartner(theId, token);
+      const thePartner = await PartnerService.GetPartner(theId, token);
       res.status(200);
       res.json(thePartner);
       console.info("GetPartner %s Completed with %s", theId, JSON.stringify(breadcrumb));
@@ -73,42 +73,7 @@ export default class PartnerController {
       console.warn("UpdatePartner Failed:", message);
     }
   }
-
-  public addContact = async (req: Request, res: Response) => {    
-    try {
-      const partnerId = req.params.partnerId;
-      const personId = req.params.personId;
-      const token = decodeToken(req);
-      const breadcrumb = createBreadcrumb(token, req);
-      const theContact = await PartnerService.AddContact(partnerId, personId, token, breadcrumb);
-      res.status(200);
-      res.json(theContact);
-      console.info("Add Contact %s to %s Complete with %s", personId, partnerId, JSON.stringify(breadcrumb));
-    } catch (error) {
-      const message = this.getMessage(error);
-      res.status(500);
-      res.json({error:message});
-      console.warn("Add Contact failed with %s", message);
-    }
-  }
-  public removeContact = async (req: Request, res: Response) => {    
-    try {
-      const partnerId = req.params.partnerId;
-      const personId = req.params.personId;
-      const token = decodeToken(req);
-      const breadcrumb = createBreadcrumb(token, req);
-      const partner = await PartnerService.RemoveContact(partnerId, personId, token, breadcrumb);
-      res.status(200);
-      res.json(partner);
-      console.info("Remove Contact %s to %s Complete with %s", personId, partnerId, JSON.stringify(breadcrumb));
-    } catch (error) {
-      const message = this.getMessage(error);
-      res.status(500);
-      res.json({error:message});
-      console.warn("Remove Contact Failed with %s", message);
-    }
-  }
-
+  
   public getMessage(error: any): string {
     if (error instanceof Error) return error.message;
     return String(error);

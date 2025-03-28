@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
-  title: "{{service.name}} API"
+  title: "partner API"
   description: |-
-    This is a super simple API for managing {{service.name}}s
+    This is a super simple API for managing partners
   contact:
-    email: "devs@{{arch.organization}}"
+    email: "devs@agile-learning-institute"
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -12,11 +12,11 @@ info:
 
 paths:
 
-{% for source in service.data.sources %}
-  /api/{{source.name}}/:
+
+  /api/partner/:
     get:
-      summary: Get a list of {{source.name}}'s names and ids
-      operationId: get_{{source.name}}
+      summary: Get a list of partner's names and ids
+      operationId: get_partner
       responses:
         "200":
           description: Successful response
@@ -25,37 +25,37 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/{{source.name}}"
+                  $ref: "#/components/schemas/partner"
         "500":
           description: An error has occurred 
     post:
-      summary: "Add a new {{source.name}}"
-      operationId: "add{{source.name}}"
+      summary: "Add a new partner"
+      operationId: "addpartner"
       requestBody:
-        description: "{{source.name}} details to be added"
+        description: "partner details to be added"
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/{{source.name}}"
+              $ref: "#/components/schemas/partner"
               required: true
       responses:
         "200":
-          description: "{{source.name}} added successfully"
+          description: "partner added successfully"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/{{source.name}}"
+                $ref: "#/components/schemas/partner"
         "500":
           description: An error has occurred 
 
-  /api/{{source.name}}/{{source.name}}Id}/:
+  /api/partner/partnerId}/:
     get:
-      summary: "Get an existing {{source.name}} by ID"
-      operationId: "get{{source.name}}ById"
+      summary: "Get an existing partner by ID"
+      operationId: "getpartnerById"
       parameters:
-        - name: "{{source.name}}Id"
+        - name: "partnerId"
           in: path
-          description: The ID of the {{service.name}} to retrieve
+          description: The ID of the partner to retrieve
           required: true
           schema:
             type: string
@@ -66,43 +66,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/{{source.name}}"
+                $ref: "#/components/schemas/partner"
         "500":
           description: An error has occurred 
     patch:
-      summary: Update a {{source.name}} by ID
-      operationId: update{{source.name}}
+      summary: Update a partner by ID
+      operationId: updatepartner
       parameters:
-        - name: "{{source.name}}Id"
+        - name: "partnerId"
           in: path
-          description: "The ID of the {{source.name}} to update"
+          description: "The ID of the partner to update"
           required: true
           schema:
             type: string
             format: GUID
       requestBody:
-        description: "updated {{source.name}} details"
+        description: "updated partner details"
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/{{source.name}}"
+              $ref: "#/components/schemas/partner"
         required: true
       responses:
         "200":
-          description: "{{source.name}} updated successfully"
+          description: "partner updated successfully"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/{{source.name}}"
+                $ref: "#/components/schemas/partner"
         "500":
           description: An error has occurred 
-{% endfor %}
 
-{% for source in service.data.sinks %}
-  /api/{{service.name}}/:
+
+
+  /api/partner/:
     get:
-      summary: Get a list of {{service.name}} 
-      operationId: get{{service.name}}
+      summary: Get a list of partner 
+      operationId: getpartner
       parameters:
         - in: query
           name: search
@@ -118,10 +118,10 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/{{service.name}}"
+                  $ref: "#/components/schemas/partner"
         "500":
           description: An error has occurred 
-{% endfor %}
+
 
   /api/config/:
     get:
@@ -145,15 +145,15 @@ paths:
 
 components:
   schemas:
-{% for source in service.data.sources %}
-    {{source.name}}:
-      {{source.schema}}
-{% endfor %}
 
-{% for source in service.data.sinks %}
-    {{source.name}}:
-      {{source.schema}}
-{% endfor %}
+    partner:
+      $ref:./dataDefinitions/dd.partner.yaml
+
+
+
+    topic:
+      $ref:./dataDefinitions/dd.topic.yaml
+
 
     config:
       type: object
