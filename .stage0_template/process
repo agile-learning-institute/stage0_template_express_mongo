@@ -21,6 +21,6 @@ docker run --rm \
     -v "$SPECIFICATIONS_PATH:/specifications" \
     -e LOG_LEVEL=$LOG_LEVEL \
     -e SERVICE_NAME=$SERVICE_NAME \
-    ghcr.io/agile-learning-institute/stage0-generator:latest
+    ghcr.io/agile-learning-institute/stage0_runbook_merge:latest
 
 echo "Done, thank you for flying with stage0."
