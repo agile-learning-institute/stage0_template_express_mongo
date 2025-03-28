@@ -28,7 +28,7 @@ docker run --rm \
     -v "$(pwd)/.stage0_template/test_data:/specifications" \
     -e LOG_LEVEL=$LOG_LEVEL \
     -e SERVICE_NAME=$SERVICE_NAME \
-    ghcr.io/agile-learning-institute/stage0-generator:latest
+    ghcr.io/agile-learning-institute/stage0_runbook_merge:latest
 
 # Check the results
 echo "Checking output..."

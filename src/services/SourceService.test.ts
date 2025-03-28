@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb";
 import {{item.name | title}}Service from "./{{item.name | title}}Service";
-import { MongoIO, Config, Token, Breadcrumb, createBreadcrumb } from "@agile-learning-institute/mentorhub-ts-api-utils";
+import { MongoIO, Config, Token, Breadcrumb, createBreadcrumb } from "@{{arch.organization}}/{{arch.product}}-ts-api-utils";
 
 // Mock dependencies
-jest.mock("@agile-learning-institute/mentorhub-ts-api-utils", () => ({
+jest.mock("@{{arch.organization}}/{{arch.product}}-ts-api-utils", () => ({
   MongoIO: {
     getInstance: jest.fn()
   },

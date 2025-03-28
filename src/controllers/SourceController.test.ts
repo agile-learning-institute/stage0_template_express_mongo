@@ -7,7 +7,7 @@ import { Request, Response } from 'express';
 jest.mock('../services/{{item.name | title}}Service');
 
 // Mock the utility module
-jest.mock('@agile-learning-institute/mentorhub-ts-api-utils', () => ({
+jest.mock('@{{arch.organization}}/{{arch.product}}-ts-api-utils', () => ({
   decodeToken: jest.fn(),
   createBreadcrumb: jest.fn(),
 }));
@@ -110,39 +110,4 @@ describe('{{item.name | title}}Controller', () => {
         expect(mockResponse.status).toHaveBeenCalledWith(200);
     });
 
-    it('should add a contact successfully', async () => {
-        const mockToken = { userId: 'user123', roles: ['admin'] };
-        const mockBreadcrumb = { correlationId: 'test-correlation-id' };
-        const mockContact = { id: 'contact123', name: 'New Contact' };
-
-        (decodeToken as jest.Mock).mockReturnValue(mockToken);
-        (createBreadcrumb as jest.Mock).mockReturnValue(mockBreadcrumb);
-        ({{item.name | title}}Service.AddContact as jest.Mock).mockResolvedValue(mockContact);
-
-        await controller.addContact(mockRequest as Request, mockResponse as Response);
-
-        expect(decodeToken).toHaveBeenCalledWith(mockRequest);
-        expect(createBreadcrumb).toHaveBeenCalledWith(mockToken, mockRequest);
-        // expect({{item.name | title}}Service.AddContact).toHaveBeenCalledWith(mockRequest.params.partnerId, mockRequest.params.personId, mockToken, mockBreadcrumb);
-        expect(mockResponse.json).toHaveBeenCalledWith(mockContact);
-        expect(mockResponse.status).toHaveBeenCalledWith(200);
-    });
-
-    it('should remove a contact successfully', async () => {
-        const mockToken = { userId: 'user123', roles: ['admin'] };
-        const mockBreadcrumb = { correlationId: 'test-correlation-id' };
-        const mock{{item.name | title}} = { id: 'partner123', name: '{{item.name | title}} A' };
-
-        (decodeToken as jest.Mock).mockReturnValue(mockToken);
-        (createBreadcrumb as jest.Mock).mockReturnValue(mockBreadcrumb);
-        ({{item.name | title}}Service.RemoveContact as jest.Mock).mockResolvedValue(mock{{item.name | title}});
-
-        await controller.removeContact(mockRequest as Request, mockResponse as Response);
-
-        expect(decodeToken).toHaveBeenCalledWith(mockRequest);
-        expect(createBreadcrumb).toHaveBeenCalledWith(mockToken, mockRequest);
-        // expect({{item.name | title}}Service.RemoveContact).toHaveBeenCalledWith(mockRequest.params.partnerId, mockRequest.params.personId, mockToken, mockBreadcrumb);
-        expect(mockResponse.json).toHaveBeenCalledWith(mock{{item.name | title}});
-        expect(mockResponse.status).toHaveBeenCalledWith(200);
-    });
 });

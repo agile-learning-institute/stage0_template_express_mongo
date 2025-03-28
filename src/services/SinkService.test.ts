@@ -2,7 +2,7 @@ import {{item.name | title}}Service from "./{{item.name | title}}Service";
 import { Config, Token, MongoIO } from "@{{arch.organization}}/{{arch.product}}-ts-api-utils";
 
 // Mock dependencies
-jest.mock("@agile-learning-institute/mentorhub-ts-api-utils", () => ({
+jest.mock("@{{arch.organization}}/{{arch.product}}-ts-api-utils", () => ({
   MongoIO: {
     getInstance: jest.fn()
   },
